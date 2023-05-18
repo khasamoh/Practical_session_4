@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regular Expression </title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        h1{
+            text-align: center;
+        }
+        .containerP{
+            width: 70%;
+            margin: auto;
+            padding: 10px;
+            background-color: rgb(247, 244, 241);
+        }
+        td{padding-bottom: 10px;}
+        table{width: 100%;}
+        label{color: red;}
+        input[type='text'],#email,#paswdVry,#paswd,#phone{
+            width: 98%;
+            height: 25px;
+        }
+    </style>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+
+        document.querySelector("#card").onchange = ()=>{
+            let selectElement = document.querySelector("#card");
+            let selectedValue = selectElement.value;
+            console.log(selectedValue);
+            let inputCardNo = document.querySelector("#cardNo");
+            let err_cardNo = document.querySelector("#err_cardNo");
+            if(selectedValue == "American Express"){
+                inputCardNo.onkeyup = ()=>{
+                    console.log("nipoo");
+                    let cardRegex = /^3[47]\d{13}$/;
+                    console.log(cardRegex.test(inputCardNo.value));
+                    if(!cardRegex.test(inputCardNo.value)){
+                        err_cardNo.textContent = "Sorry! Invalide cardNo";
+                    }else{err_cardNo.textContent ="";}
+                }
+            }else if(selectedValue == "Master Card"){
+                inputCardNo.onkeyup = ()=>{
+                    let cardRegex = /^5[12345]\d{14}$/;
+                    console.log(cardRegex.test(inputCardNo.value));
+                    if(!cardRegex.test(inputCardNo.value)){
+                        err_cardNo.textContent = "Sorry! Invalide cardNo";
+                    }else{err_cardNo.textContent ="";}
+                }
+            }else if(selectedValue == "VISA"){
+                inputCardNo.onkeyup = ()=>{
+                    let cardRegex = /[4]\d{12}(?:\d{3})?$/;
+                    console.log(cardRegex.test(inputCardNo.value));
+                    if(!cardRegex.test(inputCardNo.value)){
+                        err_cardNo.textContent = "Sorry! Invalide cardNo";
+                    }else{err_cardNo.textContent ="";}
+                }
+            }
+            else if(selectedValue == "Discover"){
+                inputCardNo.onkeyup = ()=>{
+                    let cardRegex = /[6011]/;
+                    console.log(inputCardNo.value.length);
+                    if(cardRegex.test(inputCardNo.value) && inputCardNo.value.length ===15 || inputCardNo.value.length ===16){
+                        
+                        err_cardNo.textContent ="";
+                }else{
+                        err_cardNo.textContent = "Sorry! Invalide cardNo";
+                    }
+                }
+            }else if(selectedValue == "Diners Club"){
+                inputCardNo.onkeyup = ()=>{
+                    let cardRegex = /^30[012345]/;
+                    console.log(inputCardNo.value.length);
+                    if(cardRegex.test(inputCardNo.value) && inputCardNo.value.length ===14 || inputCardNo.value.length ===16){
+                        
+                        err_cardNo.textContent ="";
+                }else{
+                        err_cardNo.textContent = "Sorry! Invalide cardNo";
+                    }
+                }
+            }
+            
+            
+
+            
+            
+        }
+        return false;
+    });
+</script>
+<body>
+    <div class="containerP" style="width: 40%;">
+        <h1>Regular Expression</h1>
+        <hr>
+        <form action="" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Card Type*</td>
+                        <td><Select id="card">
+                            <option value="">Please Card Type</option>
+                            <option value="American Express">American Express</option>
+                            <option value="Master Card">Master Card</option>
+                            <option value="VISA">VISA</option>
+                            <option value="Discover">Discover</option>
+                            <option value="Diners Club">Diners Club</option>
+                        </Select></td>
+                    </tr>
+                    <tr>
+                        <td>Card Number*</td>
+                        <td><input type="number" id="cardNo" placeholder="Enter Card Number" required><br>
+                        <label id="err_cardNo"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" id="submit" value="SEND">
+                            <input type="reset" value="CLEAR"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

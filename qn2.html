@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form 2 </title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        h1{
+            text-align: center;
+        }
+        .containerP{
+            width: 70%;
+            margin: auto;
+            padding: 10px;
+            background-color: rgb(247, 244, 241);
+        }
+        td{padding-bottom: 10px;}
+        table{width: 100%;}
+        label{color: red;}
+        input[type='text'],#email,#paswdVry,#paswd,#phone{
+            width: 98%;
+            height: 25px;
+        }
+    </style>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+            let temp = document.querySelector("#temp");
+            let same = document.querySelector("#same");
+            let perm = document.querySelector("#perm");
+            perm.onkeyup = ()=>{
+                if(perm.value.length >= 3){
+                    same.onchange =()=>{
+                        if(same.checked){
+                            temp.value = perm.value;
+                            temp.readOnly = true;
+                        }else{
+                            temp.value = "";
+                            temp.readOnly = false;
+                        }
+                    }
+                }
+            }
+            
+            
+
+        document.querySelector("#submit").onclick = ()=>{
+            let name = document.querySelector("#name").value;
+            let err_name = document.querySelector("#err_name");
+            let phone = document.querySelector("#phone").value;
+            let err_phone = document.querySelector("#err_phone");
+            let regNo = document.querySelector("#regNo").value;
+            let err_regNo = document.querySelector("#err_regNo")
+            let err_address = document.querySelector("#err_address");
+            
+            let phoneRegex = /^\d{10}$/;
+            if(!phoneRegex.test(phone)){
+                err_phone.textContent = "Mobile number should be exactly 10 digits";
+            }else{err_phone.textContent ="";}
+
+            let regNoRegex = /^[a-zA-Z0-9]+$/;
+            if(!regNoRegex.test(regNo)){
+                err_regNo.textContent = "Register number should have alphabets and numbers only";
+            }else{err_regNo.textContent ="";}
+
+            let nameRegex = /^[a-zA-Z]+$/;
+            if(name.length <= 30){
+                if(!nameRegex.test(name)){
+                    err_name.textContent = "Name should be only alphabets";
+                }else{err_name.textContent ="";}
+            }else{
+
+                    err_name.textContent = "Name should not exceed 30 characters";
+            }
+        }
+        
+    });
+</script>
+<body>
+    <div class="containerP" style="width: 40%;">
+        <h1>Student Registration Form</h1>
+        <hr>
+        <form action="" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Name*</td>
+                        <td><input type="text" id="name" required><br>
+                            <label id="err_name"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Reg.No</td>
+                        <td><input type="text" id="regNo" required><br>
+                            <label id="err_regNo"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DOB</td>
+                        <td><input type="date" id="dob" required><br>
+                            <label id="err_dob"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Program</td>
+                        <td><input type="text" id="program" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email*</td>
+                        <td><input type="email" id="email" required></td>
+                    </tr>
+                    <tr>
+                        <td>Permanent Address*</td>
+                        <td>
+                            <input type="text"  name="" id="perm" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Temporary Address</td>
+                        <td>
+                            <input type="text" name="" id="temp"><br><br>
+                            <input type="checkbox" name="" id="same" value="Permanent address is same as temporary address">Permanent address is same as temporary address
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Phone*</td>
+                        <td><input type="tel" id="phone" required><br>
+                            <label id="err_phone"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="button" id="submit" value="SEND">
+                            <input type="reset" value="CLEAR"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

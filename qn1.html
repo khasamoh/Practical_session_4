@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form 1 </title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        h1{
+            text-align: center;
+        }
+        .containerP{
+            width: 70%;
+            margin: auto;
+            padding: 10px;
+            background-color: rgb(247, 244, 241);
+        }
+        td{padding-bottom: 10px;}
+        table{width: 100%;}
+        label{color: red;}
+        input[type='text'],#email,#paswdVry,#paswd,#phone{
+            width: 98%;
+            height: 25px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+                let red = document.querySelector("#red");
+                let green = document.querySelector("#green");
+                let blue = document.querySelector("#blue");
+                let err_pref = document.querySelector("#err_pref");
+                red.onchange = ()=>{
+                    if(!(green.checked && blue.checked)){
+                        err_pref.textContent = "Minimum Two colors should be selected";
+                    }else{err_pref.textContent ="";}
+                }
+                green.onchange = ()=>{
+                    if(!(red.checked && blue.checked)){
+                        err_pref.textContent = "Minimum Two colors should be selected";
+                    }else{err_pref.textContent ="";}
+                }
+                blue.onchange = ()=>{
+                    if(!(green.checked && red.checked)){
+                        err_pref.textContent = "Minimum Two colors should be selected";
+                    }else{err_pref.textContent ="";}
+                }
+
+                //password verification
+                paswdVry.onkeyup = ()=>{
+                    let paswdVry = document.querySelector("#paswdVry").value;
+                    let err_paswd = document.querySelector("#err_paswd");
+                    let paswd = document.querySelector("#paswd").value;
+                    if(paswdVry === paswd){
+                        err_paswd.textContent ="";
+                    }else{
+                        err_paswd.textContent = "Password and verify password must match";
+                    }
+                }
+            document.querySelector("#submit").onclick = ()=>{
+                let name = document.querySelector("#name").value;
+                let err_name = document.querySelector("#err_name");
+                let address = document.querySelector("#address").value;
+                let err_address = document.querySelector("#err_address");
+
+                let nameRegex = /^[a-zA-Z]+$/;
+                if(name.length <= 20){
+                    if(!nameRegex.test(name)){
+                        err_name.textContent = "Name should be only alphabets";
+                    }else{err_name.textContent ="";}
+                }else{
+    
+                        err_name.textContent = "Name should not have a maximum of 20 characters";
+                }            
+            }
+            return false;
+        });
+    </script>
+</head>
+<body>
+    <div class="containerP" style="width: 40%;">
+        <h1>JavaScript Form Validation</h1>
+        <hr>
+        <form action="" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Name*</td>
+                        <td><input type="text" id="name" required><br>
+                            <label id="err_name"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Address*</td>
+                        <td><input type="text" id="address" required><br>
+                            <label id="err_address"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Zip Code*</td>
+                        <td><input type="text" id="zipcode" required></td>
+                    </tr>
+                    <tr>
+                        <td>Country*</td>
+                        <td><Select id="country">
+                            <option value="">Please select</option>
+                            <option value="">Tanzania</option>
+                            <option value="">Canada</option>
+                            <option value="">India</option>
+                        </Select></td>
+                    </tr>
+                    <tr>
+                        <td>Gender*</td>
+                        <td><input type="radio" name="gender" id="gender" value="Male">Male
+                            <input type="radio" name="gender" id="gender" value="Female">Female</td>
+                    </tr>
+                    <tr>
+                        <td>Preferences*</td>
+                        <td><input type="checkbox" name="" id="red" value="Red">Red
+                            <input type="checkbox" name="" id="green" value="Green">Green
+                            <input type="checkbox" name="" id="blue" value="Blue">Blue <br>
+                            <label id="err_pref"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Phone*</td>
+                        <td><input type="tel" id="phone" required></td>
+                    </tr>
+                    <tr>
+                        <td>Email*</td>
+                        <td><input type="email" id="email" required></td>
+                    </tr>
+                    <tr>
+                        <td>Password(6-8 characters)*</td>
+                        <td><input type="Password" id="paswd" required></td>
+                    </tr>
+                    <tr>
+                        <td>Verify Password*</td>
+                        <td><input type="Password" id="paswdVry" required><br>
+                            <label id="err_paswd"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" id="submit" value="SEND">
+                            <input type="reset" value="CLEAR"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
